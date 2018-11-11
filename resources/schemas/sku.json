@@ -1,0 +1,226 @@
+{
+    "tp": {
+        "db_price": "495.00",
+        "price": "525.00",
+        "size": 24,
+        "db_unit_price": "20.63",
+        "unit_price": "21.88"
+    },
+    "tc": {
+        "db_price": "645.00",
+        "price": "690.00",
+        "size": 24,
+        "db_unit_price": "26.88",
+        "unit_price": "28.75"
+    },
+    "bhp": {
+        "db_price": "486.00",
+        "price": "525.00",
+        "size": 24,
+        "db_unit_price": "20.25",
+        "unit_price": "21.88"
+    },
+    "bhc": {
+        "db_price": "645.00",
+        "price": "690.00",
+        "size": 24,
+        "db_unit_price": "26.88",
+        "unit_price": "28.75"
+    },
+    "fp": {
+        "db_price": "314.00",
+        "price": "333.00",
+        "size": 24,
+        "db_unit_price": "13.08",
+        "unit_price": "13.88"
+    },
+    "fc": {
+        "db_price": "480.00",
+        "price": "510.00",
+        "size": 24,
+        "db_unit_price": "20.00",
+        "unit_price": "21.25"
+    },
+    "f(h)": {
+        "db_price": "509.00",
+        "price": "540.00",
+        "size": 24,
+        "db_unit_price": "21.21",
+        "unit_price": "22.50"
+    },
+    "f(1)": {
+        "db_price": "484.00",
+        "price": "516.00",
+        "size": 12,
+        "db_unit_price": "40.33",
+        "unit_price": "43.00"
+    },
+    "f(2)": {
+        "db_price": "405.00",
+        "price": "432.00",
+        "size": 6,
+        "db_unit_price": "67.50",
+        "unit_price": "72.00"
+    },
+    "ucp": {
+        "db_price": "314.00",
+        "price": "333.00",
+        "size": 24,
+        "db_unit_price": "13.08",
+        "unit_price": "13.88"
+    },
+    "ucc": {
+        "db_price": "480.00",
+        "price": "510.00",
+        "size": 24,
+        "db_unit_price": "20.00",
+        "unit_price": "21.25"
+    },
+    "uc(h)": {
+        "db_price": "509.00",
+        "price": "540.00",
+        "size": 24,
+        "db_unit_price": "21.21",
+        "unit_price": "22.50"
+    },
+    "ulp": {
+        "db_price": "314.00",
+        "price": "333.00",
+        "size": 24,
+        "db_unit_price": "13.08",
+        "unit_price": "13.88"
+    },
+    "ulc": {
+        "db_price": "480.00",
+        "price": "510.00",
+        "size": 24,
+        "db_unit_price": "20.00",
+        "unit_price": "21.25"
+    },
+    "ul(h)": {
+        "db_price": "509.00",
+        "price": "540.00",
+        "size": 24,
+        "db_unit_price": "21.21",
+        "unit_price": "22.50"
+    },
+    "uop": {
+        "db_price": "314.00",
+        "price": "333.00",
+        "size": 24,
+        "db_unit_price": "13.08",
+        "unit_price": "13.88"
+    },
+    "uoc": {
+        "db_price": "480.00",
+        "price": "510.00",
+        "size": 24,
+        "db_unit_price": "20.00",
+        "unit_price": "21.25"
+    },
+    "uo(h)": {
+        "db_price": "509.00",
+        "price": "540.00",
+        "size": 24,
+        "db_unit_price": "21.21",
+        "unit_price": "22.50"
+    },
+    "uo(1)": {
+        "db_price": "484.00",
+        "price": "516.00",
+        "size": 12,
+        "db_unit_price": "40.33",
+        "unit_price": "43.00"
+    },
+    "uz": {
+        "db_price": "384.00",
+        "price": "408.00",
+        "size": 24,
+        "db_unit_price": "16.00",
+        "unit_price": "17.00"
+    },
+    "ornj": {
+        "db_price": "495.00",
+        "price": "525.00",
+        "size": 24,
+        "db_unit_price": "20.63",
+        "unit_price": "21.88"
+    },
+    "lmnj": {
+        "db_price": "495.00",
+        "price": "525.00",
+        "size": 24,
+        "db_unit_price": "20.63",
+        "unit_price": "21.88"
+    },
+    "m": {
+        "db_price": "418.00",
+        "price": "444.00",
+        "size": 24,
+        "db_unit_price": "17.42",
+        "unit_price": "18.50"
+    },
+    "m(h)": {
+        "db_price": "768.00",
+        "price": "816.00",
+        "size": 24,
+        "db_unit_price": "32.00",
+        "unit_price": "34.00"
+    },
+    "m(1)": {
+        "db_price": "678.00",
+        "price": "720.00",
+        "size": 12,
+        "db_unit_price": "56.50",
+        "unit_price": "60.00"
+    },
+    "mkp": {
+        "db_price": "418.00",
+        "price": "444.00",
+        "size": 24,
+        "db_unit_price": "17.42",
+        "unit_price": "18.50"
+    },
+    "mkt": {
+        "db_price": "441.00",
+        "price": "468.00",
+        "size": 36,
+        "db_unit_price": "12.25",
+        "unit_price": "13.00"
+    },
+    "lyp": {
+        "db_price": "233.00",
+        "price": "248.00",
+        "size": 24,
+        "db_unit_price": "9.71",
+        "unit_price": "10.33"
+    },
+    "lyc": {
+        "db_price": "480.00",
+        "price": "510.00",
+        "size": 24,
+        "db_unit_price": "20.00",
+        "unit_price": "21.25"
+    },
+    "a(h)": {
+        "db_price": "156.00",
+        "price": "168.00",
+        "size": 24,
+        "db_unit_price": "6.50",
+        "unit_price": "7.00"
+    },
+    "a(1.5)": {
+        "db_price": "150.00",
+        "price": "165.00",
+        "size": 9,
+        "db_unit_price": "16.67",
+        "unit_price": "18.33"
+    },
+    "mk(h)": {
+        "db_price": "768.00",
+        "price": "816.00",
+        "size": 24,
+        "db_unit_price": "32.00",
+        "unit_price": "34.00"
+    }
+}

@@ -1,0 +1,237 @@
+{
+  "type": "object",
+  "definitions": {},
+  "additionalProperties": false,
+  "properties": {
+    "asm_rsm_id": {
+      "$id": "/properties/asm_rsm_id",
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "title": "The Asoid Schema "
+    },
+    "dbid": {
+      "$id": "/properties/dbid",
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "title": "The Asoid Schema "
+    },
+    "dt": {
+      "$id": "/properties/dt",
+      "type": "string",
+      "format":"date",
+      "title": "The dt Schema "
+    },
+    "tp": {
+      "$id": "/properties/tp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Tp Schema "
+    },
+    "tc": {
+      "$id": "/properties/tc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Tc Schema "
+    },
+    "bhp": {
+      "$id": "/properties/bhp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Bhp Schema "
+    },
+    "bhc": {
+      "$id": "/properties/bhc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Bhc Schema "
+    },
+    "fp": {
+      "$id": "/properties/fp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Fp Schema "
+    },
+    "fc": {
+      "$id": "/properties/fc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Fc Schema "
+    },
+    "f(h)": {
+      "$id": "/properties/f(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The F(h) Schema "
+    },
+    "f(1)": {
+      "$id": "/properties/f(1)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-1]))$|^([0-9]+)$",
+      "title": "The F(1) Schema "
+    },
+    "f(2)": {
+      "$id": "/properties/f(2)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-5]))$|^([0-9]+)$",
+      "title": "The F(2) Schema "
+    },
+    "ucp": {
+      "$id": "/properties/ucp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ucp Schema "
+    },
+    "ucc": {
+      "$id": "/properties/ucc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ucc Schema "
+    },
+    "uc(h)": {
+      "$id": "/properties/uc(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Uc(h) Schema "
+    },
+    "ulp": {
+      "$id": "/properties/ulp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ulp Schema "
+    },
+    "ulc": {
+      "$id": "/properties/ulc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ulc Schema "
+    },
+    "ul(h)": {
+      "$id": "/properties/ul(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ul(h) Schema "
+    },
+    "uop": {
+      "$id": "/properties/uop",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Uop Schema "
+    },
+    "uoc": {
+      "$id": "/properties/uoc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Uoc Schema "
+    },
+    "uo(h)": {
+      "$id": "/properties/uo(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Uo(h) Schema "
+    },
+    "uo(1)": {
+      "$id": "/properties/uo(1)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-1]))$|^([0-9]+)$",
+      "title": "The Uo(1) Schema "
+    },
+    "uz": {
+      "$id": "/properties/uz",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Uz Schema "
+    },
+    "ornj": {
+      "$id": "/properties/ornj",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Ornj Schema "
+    },
+    "lmnj": {
+      "$id": "/properties/lmnj",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Lmnj Schema "
+    },
+    "m": {
+      "$id": "/properties/m",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The M Schema "
+    },
+    "m(h)": {
+      "$id": "/properties/m(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The M(h) Schema "
+    },
+    "m(1)": {
+      "$id": "/properties/m(1)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-1]))$|^([0-9]+)$",
+      "title": "The M(1) Schema "
+    },
+    "mkp": {
+      "$id": "/properties/mkp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Mkp Schema "
+    },
+    "mkt": {
+      "$id": "/properties/mkt",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-9]|3[0-5]))$|^([0-9]+)$",
+      "title": "The Mkt Schema "
+    },
+    "mk(h)": {
+      "$id": "/properties/mk(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Mk(h) Schema "
+    },
+    "lyp": {
+      "$id": "/properties/lyp",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Lyp Schema "
+    },
+    "lyc": {
+      "$id": "/properties/lyc",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The Lyc Schema "
+    },
+    "a(h)": {
+      "$id": "/properties/a(h)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-9]|1[0-9]|2[0-3]))$|^([0-9]+)$",
+      "title": "The A(h) Schema "
+    },
+    "a(1.5)": {
+      "$id": "/properties/a(1.5)",
+      "type": "string",
+      "pattern":"^(([0-9]+)?.(0[0-8]))$|^([0-9]+)$",
+      "title": "The A(1.5) Schema "
+    },
+    "total": {
+      "$id": "/properties/total",
+      "type": "string",
+      "pattern":"^[0-9]+$",
+      "title": "The Total Schema "
+    },
+    "da": {
+      "$id": "/properties/da",
+      "type": "string",
+      "pattern":"^[0-9]+$",
+      "title": "The Total Schema "
+    }
+  },
+  "required": [
+    "asm_rsm_id",
+    "dbid",
+    "dt",
+    "total",
+    "da"
+  ]
+}
+

@@ -1,0 +1,117 @@
+[
+    {
+        "model-name": "ProductBrand",
+        "resource-file": "product_brands.json"
+    },
+    {
+        "model-name": "ProductCategory",
+        "resource-file": "product_categories.json"
+    },
+    {
+        "model-name": "Country",
+        "resource-file": "countries.json"
+    },
+    {
+        "model-name": "Division",
+        "resource-file": "divisions.json"
+    },
+    {
+        "model-name": "Upazila",
+        "resource-file": "upazilas.json"
+    },
+    {
+        "model-name": "Union",
+        "resource-file": "unions.json"
+    },
+    {
+        "model-name": "Post",
+        "resource-file": "posts.json"
+    },
+    {
+        "model-name": "District",
+        "resource-file": "districts.json",
+        "table-name": "districts"
+    },
+    {
+        "model-name": "Abc",
+        "resource-file": "abcs.json"
+    },
+    {
+        "model-name": "Department",
+        "resource-file": "departments.json",
+        "table-name": "departments"
+    },
+    {
+        "model-name": "Zone",
+        "resource-file": "zones.json",
+        "table-name": "zones"
+    },
+    {
+        "model-name": "Region",
+        "resource-file": "regions.json",
+        "table-name": "regions"
+    },
+    {
+        "model-name": "Distributor",
+        "resource-file": "distributors.json",
+        "table-name": "distributors"
+    },
+    {
+        "model-name": "Territory",
+        "resource-file": "territories.json",
+        "table-name": "territories"
+    },
+    {
+        "model-name": "DistributionHouse",
+        "resource-file": "distribution_houses.json",
+        "table-name": "distribution_houses"
+    },
+    {
+        "model-name": "User",
+        "resource-file": "users.json",
+        "table-name": "users"
+    },
+    {
+        "model-name": "Category",
+        "resource-file": "categories.json",
+        "table-name": "categories"
+    },
+    {
+        "model-name": "ProductType",
+        "resource-file": "product_types.json",
+        "table-name": "product_types"
+    },
+    {
+        "model-name": "product_brand",
+        "resource-file": "product_brands.json",
+        "table-name": "product_brands"
+    },
+    {
+        "model-name": "brand",
+        "resource-file": "brands.json",
+        "table-name": "brands"
+    },
+    {
+        "model-name": "FileUpload",
+        "resource-file": "file_uploads.json"
+    },
+    {
+        "model-name": "SmsInbox",
+        "resource-file": "sms_inboxes.json",
+        "table-name": "sms_inboxes"
+    },
+    {
+        "model-name": "Skue",
+        "resource-file": "skues.json",
+        "table-name": "skues"
+    },
+    {
+        "model-name": "Product",
+        "resource-file": "products.json",
+        "table-name": "products"
+    },
+    {
+        "model-name": "Sms_outboxx",
+        "resource-file": "sms_outboxxes.json"
+    }
+]

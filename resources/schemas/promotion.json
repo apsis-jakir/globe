@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "definitions": {},
+  "additionalProperties": false,
+  "properties": {
+    "asoid": {
+      "$id": "/properties/asoid",
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "title": "The Asoid Schema "
+    },
+    "dt": {
+      "$id": "/properties/dt",
+      "type": "string",
+      "format":"date",
+      "title": "The dt Schema "
+    },
+    "rt":{
+      "$id": "/properties/rt",
+      "type": "string",
+      "pattern":"^[0-9]+$",
+      "title": "The dt Schema "
+    },
+    "pdn":{
+      "$id": "/properties/pdn",
+      "type":"array",
+      "title":" The pdn Schema"
+    }
+  },
+  "required": [
+    "asoid",
+    "dt"
+  ]
+}
+
