@@ -1,4 +1,5 @@
 <style>
+
     table{
         border-spacing: 0;
     }
