@@ -90,6 +90,13 @@
             {{--</tr>--}}
             </thead>
             <tbody>
+                    
+                    <?php 
+                    $search_option = json_encode($search_options);
+//                    echo '<pre>';
+//                    print_r($grid_data);
+//                    exit();
+                    ?>
                 @foreach($grid_data as $grids)
                     @php($total_target = 0)
                     @php($total_order = 0)
@@ -98,7 +105,11 @@
                     @php($total_achv = 0)
                     @php($total_achv_ratio = 0)
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS</a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -110,7 +121,11 @@
                         <td class="text-right">{{number_format($total_target, 2)}}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS</a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -122,7 +137,11 @@
                         <td class="text-right">{{number_format($total_order, 2)}}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -134,7 +153,11 @@
                         <td class="text-right">{{number_format($total_lifting, 2)}}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -147,10 +170,18 @@
                             <td class="text-right">{{$lift_ration}}</td>
                             @php($total_lifting_ratio += (float)$lift_ration)
                         @endforeach
-                        <td class="text-right">{{number_format($total_lifting_ratio / $la , 2)}}</td>
+                        @if($total_lifting > 0 && $total_target > 0)
+                        <td class="text-right">{{number_format($total_lifting / $total_target , 2)}}</td>
+                        @else
+                        <td class="text-right">{{number_format(0 , 2)}}</td>
+                        @endif
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -162,7 +193,11 @@
                         <td class="text-right">{{number_format($total_achv, 2)}}</td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: middle">{!! $grids['view_type'] !!} </td>
+                        <td style="vertical-align: middle">
+                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
+                                <br>                                
+                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                        </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
@@ -175,7 +210,12 @@
                             <td class="text-right">{{$achvmnt_ration}}</td>
                             @php($total_achv_ratio += (float)$achvmnt_ration)
                         @endforeach
-                        <td class="text-right">{{number_format($total_achv_ratio / $ar , 2)}}</td>
+                        
+                        @if($total_achv > 0 && $total_target > 0)
+                        <td class="text-right">{{number_format($total_achv / $total_target , 2)}}</td>
+                        @else
+                        <td class="text-right">{{number_format(0 , 2)}}</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
@@ -225,26 +265,26 @@
         buttons: ['pageLength']
     });
 //    $(document).on('click','.digdown', function (e) {
-    $('.digdown').click(function(e){
-        e.preventDefault();
-        var url = "<?php echo url('digdownDSSAjax');?>";
-        var _token = '<?php echo csrf_token() ?>';
-        var loctype = $(this).data('loctype');
-        var locid = $(this).data('locid');
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: $('#grid_list_frm').serialize()
-            +'&_token='+_token
-            +'&loctype='+loctype
-            +'&locid='+locid,
-            beforeSend: function(){ $('.loadingImage').show();},
-            success: function (d) {
-                $('.showSearchDataUnique').html(d);
-//                myConfiguration();
-                $('.loadingImage').hide();
-            }
-        });
-    });
+
+//    $('.digdown').click(function(e){
+//        e.preventDefault();
+//        var url = "<?php //echo url('digdownDSSAjax');?>";
+//        var _token = '<?php //echo csrf_token() ?>';
+//        var loctype = $(this).data('loctype');
+//        var locid = $(this).data('locid');
+//        $.ajax({
+//            url: url,
+//            type: 'POST',
+//            data: $('#grid_list_frm').serialize()
+//            +'&_token='+_token
+//            +'&loctype='+loctype
+//            +'&locid='+locid,
+//            beforeSend: function(){ $('.loadingImage').show();},
+           // success: function (d) {//
+//                $('.showSearchDataUnique').html(d);
+//                $('.loadingImage').hide();
+//            }
+//        });
+//    });
 
 </script>

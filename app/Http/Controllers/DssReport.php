@@ -65,6 +65,7 @@ class DssReport extends Controller {
         $data['view_column'] = $view_report[0];
         $data['view_report'] = ucfirst($view_report[0]);
         $search_type = $post['search_type'][0];
+        $data['search_options'] = $post;
         if($search_type == 'show')
         {
             return view('reports.dssreport.view', $data);
