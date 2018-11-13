@@ -240,20 +240,16 @@ class DssReport extends Controller {
         $grid_data = [];
 
         foreach ($order_data as $key => $orders){
-            if($view_report != 'date'){
-                $grid_data[$key]['view_type'] = !empty($orders->naming_field) ?
-                    '<a href="" class="digdown" 
-                            data-loctype="'.$view_report.'" 
-                            data-locid="'.$orders->naming_field_id .'" data-month="'.$custom_search['month'][0].'">'.$orders->naming_field.'</a>' : 0;
-            }else{
-                $grid_data[$key]['view_type'] = !empty($orders->naming_field) ? $orders->naming_field : 0;
-            }
+            $grid_data[$key]['view_type'] = !empty($orders->naming_field) ? $orders->naming_field : 0;
 
 
             $grid_data[$key]['zone'] = $orders->zone;
             $grid_data[$key]['region'] = $orders->region;
             $grid_data[$key]['territory'] = $orders->territory;
             $grid_data[$key]['house'] = $orders->house;
+            $grid_data[$key]['loctype'] = $orders->naming_field;
+            $grid_data[$key]['locid'] = $orders->naming_field_id;
+            $grid_data[$key]['month'] = $custom_search['month'][0];
 
 
             if(!empty($getTargets[$orders->naming_field_id])){
@@ -288,38 +284,7 @@ class DssReport extends Controller {
         return $grid_data;
     }
 
-    /**-----------------------------------------------------**/
-    public function digdownDSSAjax(Request $request){
-        $post = $request->all();
-        unset($post['_token']);
-        $request_data = array_filter($post);
-        $loctype = $request_data['loctype'];
-        $locid = $request_data['locid'];
-        $data['level'] = 1;
-        $data['level_col_data'] = ['Req', 'Del'];
-        $categorie_ids = array_key_exists('category_id', $request_data) ? $request_data['category_id'] : [];
-        $brand_ids = array_key_exists('brands_id', $request_data) ? $request_data['brands_id'] : [];
-        $sku_ids = array_key_exists('skues_id', $request_data) ? $request_data['skues_id'] : [];
-
-        $custom_search['zones'] = array_key_exists('zones_id', $request_data) ? $request_data['zones_id'] : [];
-        $custom_search['regions'] = array_key_exists('regions_id', $request_data) ? $request_data['regions_id'] : [];
-        $custom_search['territories'] = array_key_exists('territories_id', $request_data) ? $request_data['territories_id'] : [];
-        $custom_search['house'] = array_key_exists('id', $request_data) ? $request_data['id'] : [];
-        $custom_search['route'] = array_key_exists('id', $request_data) ? $request_data['route_id'] : [];
-        $custom_search['month'] = array_key_exists('id', $request_data) ? $request_data['month'][0] : [];
-
-        $data['memo_structure'] = repoStructure($categorie_ids, $brand_ids, $sku_ids);
-        $data['position'] = $this->getStringLocation($custom_search['zones'], $custom_search['regions'], $custom_search['territories'], $custom_search['house']);
-        $data['month'] = $custom_search['month'];
-        $data['grid_data'] = $this->getDSSData(
-            'date',
-            $data['memo_structure'],
-            NULL,
-            ['loctype' => $loctype, 'locid' => $locid, 'month' => $custom_search['month']]
-        );
-        $data['view_column'] = 'date';
-        return view('reports.dssreport.digdownview', $data);
-    }
+    
 
     public function getDSSData($view_report = '', $memo_structure = [], $custom_search = [], $digdowndata=[]){
         $sku_list = $this->getSKUList($memo_structure);
@@ -623,6 +588,185 @@ class DssReport extends Controller {
         }
 
         ExportHelper::excelHeader($filename,$spreadsheet);
+    }
+    
+    /**------------------start by Mamun-----------------------------------**/
+    public function digdownDSSAjax($loctype,$locid,$details_for,$search_option){
+        $search_options = json_decode($search_option, true);
+        $data['level'] = 1;
+        $data['level_col_data'] = ['Req', 'Del'];
+        $categorie_ids = array_key_exists('category_id', $search_options) ? $search_options['category_id'] : [];
+        $brand_ids = array_key_exists('brands_id', $search_options) ? $search_options['brands_id'] : [];
+        $sku_ids = array_key_exists('skues_id', $search_options) ? $search_options['skues_id'] : [];
+
+        $custom_search['zones'] = array_key_exists('zones_id', $search_options) ? $search_options['zones_id'] : [];
+        $custom_search['regions'] = array_key_exists('regions_id', $search_options) ? $search_options['regions_id'] : [];
+        $custom_search['territories'] = array_key_exists('territories_id', $search_options) ? $search_options['territories_id'] : [];
+        $custom_search['house'] = array_key_exists('id', $search_options) ? $search_options['id'] : [];
+        $custom_search['route'] = array_key_exists('id', $search_options) ? $search_options['route_id'] : [];
+        $custom_search['month'] = array_key_exists('id', $search_options) ? $search_options['month'][0] : [];
+
+        $data['memo_structure'] = repoStructure($categorie_ids, $brand_ids, $sku_ids);
+        $data['position'] = $this->getStringLocation($custom_search['zones'], $custom_search['regions'], $custom_search['territories'], $custom_search['house']);
+        $data['month'] = $custom_search['month'];
+        $data['view_report'] = $search_options['view_report'][0];
+        $data['grid_data'] = $this->getDSSData(
+            'date',
+            $data['memo_structure'],
+            NULL,
+            ['loctype' => $loctype, 'locid' => $locid, 'month' => $custom_search['month']]
+        );
+        $data['view_column'] = 'date';
+        if($details_for == "export"){
+            $filename='dss-'.Auth::user()->id.'.xlsx';
+            $this->export_monthly_achievement_digdown($data,$filename);
+            echo $filename;
+        }else{
+            $data['view_column'] = $search_options['view_report'][0];
+           return view('reports.dssreport.digdownview', $data); 
+        }
+    }
+    
+    public function export_monthly_achievement_digdown($data, $filename) {
+        unset($data['view_report']);
+        $data['view_report'] = "Order Date";
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('DigdownSheet');
+
+        $number = 0;
+        $row = 1;
+        $additionalRowColumn = array(
+            'addiColumn' => array('Particulars')
+        );
+        ExportHelper::get_header_design($number,$row,'Monthly Achievement & DSS',$sheet);
+        ExportHelper::get_column_title($number, $row, $data, 2, $sheet, $additionalRowColumn);
+        $row++;
+
+        $date_grid = [];
+        $month = explode('-', $data['month']);
+        $mnth = date_parse($month[0]);
+        $year = $month[1];
+        for ($d = 1; $d <= 31; $d++) {
+            $time = mktime(12, 0, 0, $mnth['month'], $d, $year);
+            if (date('m', $time) == $mnth['month']) {
+                $date = date('Y-m-d', $time);
+                $date_grid[$date] = [];
+            }
+        }
+        $datas = [];
+        $intial_targets = $data['grid_data']['target'];
+        $till_achvment = [];
+        foreach ($data['grid_data']['tabledata'] as $key => $init) {
+            $datas[$init['view_type']]['order'] = $data['grid_data']['tabledata'][$key]['order'];
+            $datas[$init['view_type']]['achvmnt'] = $data['grid_data']['tabledata'][$key]['achvmnt'];
+            $datas[$init['view_type']]['achvmnt_ratio'] = $data['grid_data']['tabledata'][$key]['achvmnt_ratio'];
+        }
+
+        $total_datas = array_merge($date_grid, $datas);
+        $remaining_days = (float) count($date_grid);
+        foreach ($intial_targets as $i => $tt) {
+            $till_achvment[$i][] = 0;
+        }
+
+        foreach ($total_datas as $date => $total_data) {
+            if (!empty($total_data)) {
+                
+                $number = 0;
+                $internal_row = $row;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $row, $date);
+                $sheet->mergeCells(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))->getStyle(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))
+                        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $number++;
+
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $row, 'RDT');
+                $number++;
+                
+                $targetNumber = $number + 0;
+                foreach ($intial_targets as $t => $targets) {
+                    $tillacv = array_sum($till_achvment[$t]);
+                    $rdt = number_format(((((float) $targets - $tillacv) / $remaining_days)), 2);
+                    $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $row, $rdt);
+                    $number++;
+                }
+                $remaining_days--;
+
+                $internal_row ++;
+                $number = 0;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $row, $date);
+                $sheet->mergeCells(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))->getStyle(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))
+                        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $number++;
+                
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $internal_row, 'ORDER');
+                $number++;
+
+                $o = 0;
+                $targetNumber = $number + 0;
+                foreach ($intial_targets as $targets) {
+                    if (isset($total_data['order'][$o]) && !empty($total_data['order'][$o])) {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format((float) $total_data['order'][$o], 2));
+                    } else {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format(0, 2));
+                    }
+                    $o++;
+                }
+
+                $internal_row ++;
+                $number = 0;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $row, $date);
+                $sheet->mergeCells(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))->getStyle(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))
+                        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $number++;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $internal_row, 'Sales');
+                $number++;
+
+                $a = 0;
+                $targetNumber = $number + 0;
+                foreach ($intial_targets as $targets) {
+                    if (isset($total_data['achvmnt'][$a]) && !empty($total_data['achvmnt'][$a])) {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format((float) $total_data['achvmnt'][$a], 2));
+                    } else {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format(0, 2));
+                    }
+                    $a++;
+                }
+                
+                $internal_row ++;
+                $number = 0;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $row, $date);
+                $sheet->mergeCells(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))->getStyle(ExportHelper::get_letter($number) . $row . ':' . ExportHelper::get_letter($number) . ($row + 3))
+                        ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $number++;
+                $sheet->setCellValue(ExportHelper::get_letter($number) . $internal_row, 'Cum Ach %');
+                $number++;
+
+                $ac = 0;
+                $targetNumber = $number + 0;
+                foreach ($intial_targets as $targets) {
+                    if (isset($total_data['achvmnt_ratio'][$ac]) && !empty($total_data['achvmnt_ratio'][$ac])) {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format((float) $total_data['achvmnt_ratio'][$ac], 2));
+                    } else {
+                        $sheet->setCellValue(ExportHelper::get_letter($targetNumber++) . $internal_row, number_format(0, 2));
+                    }
+                    $ac++;
+                }
+                
+                $row = $row + 4;
+            }
+        }
+        self::DssexcelHeader($filename, $spreadsheet);
+    }
+
+    public static function DssexcelHeader($filename,$spreadsheet)
+    {
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new xlsx($spreadsheet);
+        $writer->save('php://output');
+//        $writer->save("./public/export/".$filename);
     }
 
 }
