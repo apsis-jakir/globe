@@ -14,7 +14,7 @@
             <th>Visited Outlet</th>
             <th>Successfull Memo</th>
             <th>Call Productivity</th>
-            <th>Protfollio Volume</th>
+            <th>Portfolio Volume</th>
             <th>Value Per Call</th>
             <th>Total SKU Order Qty</th>
             <th>Order Amount</th>

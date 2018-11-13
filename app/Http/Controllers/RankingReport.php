@@ -173,17 +173,17 @@ class RankingReport extends Controller {
             DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.total_outlet else 0 end) total_outlet_num"),
             DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.visited_outlet else 0 end) total_visited_outlet"),
             DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.total_no_of_memo else 0 end) total_successfull_memo"),
-            DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.order_total_sku else 0 end) total_order_quantity"),
+            DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.order_total_case else 0 end) total_order_quantity"),
             DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then cur_order.order_amount else 0 end) total_order_amount"),
-            DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then sales_cur.sale_total_sku else 0 end) total_sale_quantity"),
+            DB::raw("SUM(CASE WHEN order_details_cur.short_name = 'tp' then sales_cur.sale_total_case else 0 end) total_sale_quantity"),
             DB::raw("SUM(CASE WHEN order_details_cur.no_of_memo IS NULL THEN 0 ELSE order_details_cur.no_of_memo END) total_individual_memo"),
 
             DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.total_outlet else 0 end) total_outlet_num_prev"),
             DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.visited_outlet else 0 end) total_visited_outlet_prev"),
             DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.total_no_of_memo else 0 end) total_successfull_memo_prev"),
-            DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.order_total_sku else 0 end) total_order_quantity_prev"),
+            DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.order_total_case else 0 end) total_order_quantity_prev"),
             DB::raw("SUM(CASE WHEN order_details_prev.short_name = 'tp' then prev_order.order_amount else 0 end) total_order_amount_prev"),
-            DB::raw("SUM(CASE WHEN sale_details_prev.short_name = 'tp' then prev_sales.sale_total_sku else 0 end) total_sale_quantity_prev"),
+            DB::raw("SUM(CASE WHEN sale_details_prev.short_name = 'tp' then prev_sales.sale_total_case else 0 end) total_sale_quantity_prev"),
             DB::raw("SUM(CASE WHEN order_details_prev.no_of_memo IS NULL THEN 0 ELSE order_details_prev.no_of_memo END) total_individual_memo_prev")
         );
 
@@ -194,6 +194,7 @@ class RankingReport extends Controller {
         $grid_data = [];
 //        dd($order_data->toArray());
         foreach ($order_data as $key => $orders){
+            //debug($orders,1);
             $grid_data[$key]['code'] = !empty($orders->code) ? $orders->code : 0;
             $grid_data[$key]['view_type'] = !empty($orders->name) ? $orders->name : 0;
             $grid_data[$key]['designation'] = isset($designations[$orders->designation_id]) ? $designations[$orders->designation_id] : '';
@@ -219,8 +220,7 @@ class RankingReport extends Controller {
             $emp_data['total_sale_quantity'] = $orders->total_sale_quantity;
             $emp_data['total_individual_sku_quantity'] = $orders->total_individual_memo;
             //debug($emp_data,1);
-            $grid_data[$key]['achv_point'] = self::getRankingAch($emp_data);
-            $grid_data[$key]['achv_color'] = self::getColor($grid_data[$key]['achv_point']);
+
 
             $prev_data['total_outlet'] = $orders->total_outlet_num_prev;
             $prev_data['total_visited_outlet'] = $orders->total_visited_outlet_prev;
@@ -229,10 +229,16 @@ class RankingReport extends Controller {
             $prev_data['total_order_amount'] = $orders->total_order_amount_prev;
             $prev_data['total_sale_quantity'] = $orders->total_sale_quantity_prev;
             $prev_data['total_individual_sku_quantity'] = $orders->total_individual_memo_prev;
-            $grid_data[$key]['prev_achv_point'] = self::getRankingAch($prev_data);
+
+            $grid_data[$key]['achv_point'] = (($emp_data['total_order_quantity']>0)?self::getRankingAch($emp_data):0);
+            $grid_data[$key]['achv_color'] = self::getColor($grid_data[$key]['achv_point']);
+
+            $grid_data[$key]['prev_achv_point'] = (($prev_data['total_order_quantity']>0)?self::getRankingAch($prev_data):0);
             $grid_data[$key]['prev_achv_color'] = self::getColor($grid_data[$key]['prev_achv_point']);
+            //dd($emp_data,$prev_data);
 
         }
+        //debug($grid_data[$key]['prev_achv_point'],1);
 //        $value_ach = [];
 //        foreach ($grid_data as $key => $value) {
 //            $value_ach[$key] = $value['achv_point'];
@@ -242,6 +248,7 @@ class RankingReport extends Controller {
     }
 
     private static function getRankingAch($data){
+        //debug($data,1);
         $rankingConfig = Config::get('rank')['ranking'];
         $visited_outlet_mark = 0;
         $call_productivity_mark = 0;
@@ -250,6 +257,7 @@ class RankingReport extends Controller {
         $value_per_call = 0;
         $bounce_call = 0;
         foreach ($rankingConfig as $key => $value) {
+            //debug($key,1);
             switch ($key) {
                 case 'v_o':
                     $obtained_marks = $data['total_outlet'] != 0 ? ($data['total_visited_outlet'] / $data['total_outlet']) * 100 : 0;
@@ -276,7 +284,10 @@ class RankingReport extends Controller {
                             : 0;
                     }
                 case 'p_v':
+                    //debug($data,1);
+                    //dd($data['total_order_quantity'],$data['total_no_of_memo']);
                     $obtained_marks = $data['total_no_of_memo'] != 0 ? ($data['total_order_quantity'] / $data['total_no_of_memo']) : 0;
+                    //debug($obtained_marks,1);
                     if($obtained_marks > $rankingConfig['p_v']['required_mark'] ){
                         $protfolio_volume = $rankingConfig['p_v']['marks'] ;
                     }else{
@@ -293,6 +304,8 @@ class RankingReport extends Controller {
                 case 'b_c':
                     $obtained_marks = $data['total_order_quantity'] != 0 ? ($data['total_order_quantity'] - $data['total_sale_quantity']) / $data['total_order_quantity'] : 0;
 
+
+                    //debug($obtained_marks,1);
                     $bounce_call = 0;
                     if($obtained_marks > 50)
                     {
@@ -361,8 +374,9 @@ class RankingReport extends Controller {
 //        $aa['bounce_call'] = $bounce_call;
 //        $aa['brand_call_productivity'] = $brand_call_productivity;
 //        dd($aa);
-        //dd($visited_outlet_mark,$call_productivity_mark,$protfolio_volume,$value_per_call,$bounce_call,$brand_call_productivity);
+        //dd('visited_outlet_mark - '.$visited_outlet_mark,'call_productivity_mark - '.$call_productivity_mark,'protfolio_volume - '.$protfolio_volume,'value_per_call - '.$value_per_call,'bounce_call - '.$bounce_call,'brand_call_productivity - '.$brand_call_productivity);
         $total = $visited_outlet_mark + $call_productivity_mark + $protfolio_volume + $value_per_call + $bounce_call + $brand_call_productivity;
+        //debug($total,1);
         return number_format($total, 2);
     }
 

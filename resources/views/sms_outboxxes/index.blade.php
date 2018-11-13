@@ -36,7 +36,7 @@
 				{{--</div>--}}
 				@if(count($smsOutboxxes) == 0)
 					<div class="text-center">
-						<h4>No Sms Outboxxes Available!</h4>
+						<h4>No SMS Available!</h4>
 					</div>
 				@else
 				<div class="box-body">

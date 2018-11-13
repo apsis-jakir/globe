@@ -172,9 +172,9 @@ class OrderVSsalesReport extends Controller {
             $db_field = 'distribution_houses.point_name as naming_field';
         }
 
-        $orders_table->leftJoin('orders', function($join) use ($date_range){
+        $orders_table->leftJoin('orders', function($join) use ($date_range,$ordersalemode){
             $join->on('distribution_houses.id', '=', 'orders.dbid')
-                ->where('orders.order_type','Primary')
+                ->where('orders.order_type',$ordersalemode)
                 ->whereIn('orders.order_status',['Edited', 'Processed'])
                 ->whereBetween('orders.order_date',$date_range);
         });
