@@ -88,7 +88,8 @@ Route::post('digdownReconciliationAjax/{type?}','ReconciliationReport@digdownRec
 
 Route::get('monthly-achievement/{type?}','DssReport@monthlyAchvList');
 Route::post('monthlyAchvAjax/{type?}','DssReport@monthlyAchvAjax');
-Route::get('digdownDSSAjax/{loctype}/{locid}/{details_for}/{search_option}','DssReport@digdownDSSAjax');
+Route::post('digdownDSSAjax','DssReport@digdownDSSAjax');
+Route::post('digdownDSSAjaxExcelDownload','DssReport@digdownDSSAjaxExcelDownload');
 
 Route::get('route-strike-rate/{type?}','RouteStrikeRate@RouteStrikeRateList');
 Route::post('RouteStrikeRateAjax/{type?}','RouteStrikeRate@RouteStrikeRateAjax');

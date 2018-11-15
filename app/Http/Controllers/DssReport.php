@@ -65,7 +65,7 @@ class DssReport extends Controller {
         $data['view_column'] = $view_report[0];
         $data['view_report'] = ucfirst($view_report[0]);
         $search_type = $post['search_type'][0];
-        $data['search_options'] = $post;
+        $data['searchAreaOption'] = $post;
         if($search_type == 'show')
         {
             return view('reports.dssreport.view', $data);
@@ -389,7 +389,6 @@ class DssReport extends Controller {
                 $grid_data['tabledata'][$key]['achvmnt_ratio'][] = $target != 0 ? ($achv_num / $target) * 100 : 0;
             }
         }
-//        dd($grid_data);
         return $grid_data;
     }
     /*===================================================*/
@@ -591,42 +590,76 @@ class DssReport extends Controller {
     }
     
     /**------------------start by Mamun-----------------------------------**/
-    public function digdownDSSAjax($loctype,$locid,$details_for,$search_option){
-        $search_options = json_decode($search_option, true);
+    public function digdownDSSAjax(Request $request){
+        $post = $request->all();
+        $request_data = array_filter($post);
+        $view_report = array_key_exists('view_report', $request_data) ? $request_data['view_report'] : [];
+        $data['level'] = 1;
+        $data['level_col_data'] = ['Req', 'Del'];
+        $categorie_ids = array_key_exists('category_id', $request_data) ? $request_data['category_id'] : [];
+        $brand_ids = array_key_exists('brands_id', $request_data) ? $request_data['brands_id'] : [];
+        $sku_ids = array_key_exists('skues_id', $request_data) ? $request_data['skues_id'] : [];
+        $custom_search['zones'] = array_key_exists('zones_id', $request_data) ? $request_data['zones_id'] : [];
+        $custom_search['regions'] = array_key_exists('regions_id', $request_data) ? $request_data['regions_id'] : [];
+        $custom_search['territories'] = array_key_exists('territories_id', $request_data) ? $request_data['territories_id'] : [];
+        $custom_search['house'] = array_key_exists('id', $request_data) ? $request_data['id'] : [];
+        $custom_search['route'] = array_key_exists('id', $request_data) ? $request_data['route_id'] : [];
+        $custom_search['aso'] = array_key_exists('id', $request_data) ? $request_data['aso_id'] : [];
+        $custom_search['month'] = array_key_exists('id', $request_data) ? $request_data['month'] : [];
+        
+        $data['memo_structure'] = repoStructure($categorie_ids, $brand_ids, $sku_ids);
+        $data['position'] = $this->getStringLocation($custom_search['zones'], $custom_search['regions'], $custom_search['territories'], $custom_search['house']);
+        $data['month'] = $custom_search['month'][0];
+        $data['view_report'] = ucfirst($view_report[0]);
+        $data['grid_data'] = $this->getDSSData(
+            'date',
+            $data['memo_structure'],
+            NULL,
+            ['loctype' => $request_data['loctype'], 'locid' => $request_data['locid'], 'month' => $custom_search['month']]
+        );
+        $data['view_column'] = 'date';
+        if($request_data['details_for_form'] == "export"){
+            $filename='dss-'.Auth::user()->id.'.xlsx';
+            $this->export_monthly_achievement_digdown($data,$filename);
+            echo $filename;
+        }else{
+            $data['view_column'] = $view_report[0];
+            echo view('reports.dssreport.digdownview', $data);
+        }
+    }
+    public function digdownDSSAjaxExcelDownload(Request $request){
+        $post = $request->all();
+        $request_data = array_filter($post);
+        $search_options = json_decode($request_data['search_options'],true);
+        $view_report = array_key_exists('view_report', $search_options) ? $search_options['view_report'] : [];
         $data['level'] = 1;
         $data['level_col_data'] = ['Req', 'Del'];
         $categorie_ids = array_key_exists('category_id', $search_options) ? $search_options['category_id'] : [];
         $brand_ids = array_key_exists('brands_id', $search_options) ? $search_options['brands_id'] : [];
         $sku_ids = array_key_exists('skues_id', $search_options) ? $search_options['skues_id'] : [];
-
         $custom_search['zones'] = array_key_exists('zones_id', $search_options) ? $search_options['zones_id'] : [];
         $custom_search['regions'] = array_key_exists('regions_id', $search_options) ? $search_options['regions_id'] : [];
         $custom_search['territories'] = array_key_exists('territories_id', $search_options) ? $search_options['territories_id'] : [];
         $custom_search['house'] = array_key_exists('id', $search_options) ? $search_options['id'] : [];
         $custom_search['route'] = array_key_exists('id', $search_options) ? $search_options['route_id'] : [];
-        $custom_search['month'] = array_key_exists('id', $search_options) ? $search_options['month'][0] : [];
-
+        $custom_search['aso'] = array_key_exists('id', $search_options) ? $search_options['aso_id'] : [];
+        $custom_search['month'] = array_key_exists('id', $search_options) ? $search_options['month'] : [];
+        
         $data['memo_structure'] = repoStructure($categorie_ids, $brand_ids, $sku_ids);
         $data['position'] = $this->getStringLocation($custom_search['zones'], $custom_search['regions'], $custom_search['territories'], $custom_search['house']);
-        $data['month'] = $custom_search['month'];
-        $data['view_report'] = $search_options['view_report'][0];
+        $data['month'] = $custom_search['month'][0];
+        $data['view_report'] = ucfirst($view_report[0]);
         $data['grid_data'] = $this->getDSSData(
             'date',
             $data['memo_structure'],
             NULL,
-            ['loctype' => $loctype, 'locid' => $locid, 'month' => $custom_search['month']]
+            ['loctype' => $request_data['loctype'], 'locid' => $request_data['locid'], 'month' => $custom_search['month']]
         );
         $data['view_column'] = 'date';
-        if($details_for == "export"){
-            $filename='dss-'.Auth::user()->id.'.xlsx';
-            $this->export_monthly_achievement_digdown($data,$filename);
-            echo $filename;
-        }else{
-            $data['view_column'] = $search_options['view_report'][0];
-           return view('reports.dssreport.digdownview', $data); 
-        }
+        $filename='dss-'.Auth::user()->id.'.xlsx';
+        $this->export_monthly_achievement_digdown($data,$filename);
+        echo $filename;
     }
-    
     public function export_monthly_achievement_digdown($data, $filename) {
         unset($data['view_report']);
         $data['view_report'] = "Order Date";
@@ -670,7 +703,7 @@ class DssReport extends Controller {
         }
 
         foreach ($total_datas as $date => $total_data) {
-            if (!empty($total_data)) {
+//            if (!empty($total_data)) {
                 
                 $number = 0;
                 $internal_row = $row;
@@ -753,7 +786,7 @@ class DssReport extends Controller {
                 }
                 
                 $row = $row + 4;
-            }
+//            }
         }
         self::DssexcelHeader($filename, $spreadsheet);
     }

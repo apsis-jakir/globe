@@ -24,8 +24,9 @@
 @if(!empty($grid_data))
     <div class="text-bold text-blue">{{$position}}</div>
     <br/>
+    
     {{--<div class="table table-responsive">--}}
-        <table id="lifting" class="table-bordered table dataTable">
+        <table id="lifting" class="table-bordered table dataTable dss_report_table">
             <thead>
             <tr>
                 <th rowspan="3" style="vertical-align: middle">
@@ -91,7 +92,8 @@
             </thead>
             <tbody>
                     <?php 
-                    $search_option = json_encode($search_options);
+//                    debug($search_options,1);
+//                    $search_option = json_encode($search_options);
                     ?>
                 @foreach($grid_data as $grids)
                     @php($total_target = 0)
@@ -102,9 +104,28 @@
                     @php($total_achv_ratio = 0)
                     <tr>
                         <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>   
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+<!--                            <a 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" 
+                                href="">Export DSS 
+                            </a>-->
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -118,9 +139,20 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>                                
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -134,9 +166,20 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>                                
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -150,9 +193,20 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>                                
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -174,9 +228,20 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>                                
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -189,10 +254,21 @@
                         <td class="text-right">{{number_format($total_achv, 2)}}</td>
                     </tr>
                     <tr>
-                            <td style="vertical-align: middle">
-                                <a target="_blank" style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/view/'.$search_option)}}">{!! $grids['view_type'] !!} </a>
-                                <br>                                
-                                <a target="_blank" style="margin-top: 3px;margin-bottom: 3px;width: 95px;" class="btn btn-bitbucket" href="{{URL::to('digdownDSSAjax/'.$grids['loctype'].'/'.$grids['locid'].'/export/'.$search_option)}}">Export DSS </a>
+                        <td style="vertical-align: middle">
+                            <a class="digdown_view" 
+                                loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="view" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                href="">
+                                {!! $grids['view_type'] !!} 
+                            </a>
+                            <br>                                
+                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                                locid_form="{{$grids['locid']}}" 
+                                details_for_form="export" 
+                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
+                                class="btn btn-bitbucket digdown_export" value="Export DSS">
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -206,11 +282,10 @@
                             <td class="text-right">{{$achvmnt_ration}}</td>
                             @php($total_achv_ratio += (float)$achvmnt_ration)
                         @endforeach
-                        
                         @if($total_achv > 0 && $total_target > 0)
-                        <td class="text-right">{{number_format($total_achv / $total_target , 2)}}</td>
+                            <td class="text-right">{{number_format($total_achv / $total_target , 2)}}</td>
                         @else
-                        <td class="text-right">{{number_format(0 , 2)}}</td>
+                            <td class="text-right">{{number_format(0 , 2)}}</td>
                         @endif
                     </tr>
                 @endforeach
@@ -220,6 +295,15 @@
 @else
     <div class="alert alert-info text-center"><h3><i class="fa fa-exclamation-triangle"></i> Please Search for result</h3></div>
 @endif
+
+    <form id="ds_another_form" method="POST" action="" name="ds_another_form">
+    <!--@debug($search_options,1);-->
+        @csrf
+        <input type="hidden" name="search_options" class="search_options" value="{{json_encode($searchAreaOption)}}">
+        <input type="hidden" name="loctype" class="loctype" value="">
+        <input type="hidden" name="locid" class="locid" value="">
+    </form>
+    <!--@debug($data,1);-->
 <script>
     var view_type = '<?php echo @$view_column; ?>';
     var rowsGroup = [0]; // for zone
@@ -244,7 +328,7 @@
         rowsGroup = [0,1,2,3,4];
         fixedColumn = 6;
     }
-    $('#lifting').dataTable({
+    $('.dss_report_table').dataTable({
         scrollY: "calc(125vh - 380px)",
         scrollX: true,
         scrollCollapse: true,
@@ -260,25 +344,71 @@
         "pageLength": 50,
         buttons: ['pageLength']
     });
-//    $(document).on('click','.digdown', function (e) {
+        $('.digdown_view').click(function(e){
+        e.preventDefault();
+        var url = "<?php echo url('digdownDSSAjax');?>";
+        var loctype = $(this).attr('loctype_form');
+        var locid = $(this).attr('locid_form');
+        var details_for = $(this).attr('details_for_form');
+        $('.loctype_form').val(loctype);
+        $('.locid_form').val(locid);
+        $('.details_for_form').val(details_for);
+        var _token = '<?php echo csrf_token() ?>';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#grid_list_frm').serialize()
+            +'&_token='+_token
+            +'&loctype='+loctype
+            +'&locid='+locid
+            +'&details_for_form='+details_for,
+            beforeSend: function(){ $('.loadingImage').show();},
+            success: function (d) {
+            $('.showSearchDataUnique').html(d);
+//            $('.showSearchDataUnique').html(d);
+//                $(".dss_report_table").load();
+//                $('.dss_report_table').html(d);
+                $('.loadingImage').hide();
+            }
+        });
+        });
+        
+        $(document).on("click",'.digdown_export', function(e) {
+            var url = "<?php echo url('digdownDSSAjaxExcelDownload');?>";
+            var loctype = $(this).attr('loctype_form');
+            var locid = $(this).attr('locid_form');
+            $('.loctype').val(loctype);
+            $('.locid').val(locid);
+            $('#ds_another_form').attr('action', url).submit();
+        });
 
-//    $('.digdown').click(function(e){
-//        e.preventDefault();
-//        var url = "<?php //echo url('digdownDSSAjax');?>";
-//        var _token = '<?php //echo csrf_token() ?>';
-//        var loctype = $(this).data('loctype');
-//        var locid = $(this).data('locid');
+   <!--$('.digdown_view').click(function(e){-->
+////        e.preventDefault();
+//        var url = "<?php // echo url('digdownDSSAjax');?>";
+//        var success_url = "<?php // echo url('digdownDSSAjaxViewPage');?>";
+//        var loctype = $(this).attr('loctype_form');
+//        var locid = $(this).attr('locid_form');
+//        var details_for = $(this).attr('details_for_form');
+//        $('.loctype_form').val(loctype);
+//        $('.locid_form').val(locid);
+//        $('.details_for_form').val(details_for);
+////        $('#dss_all_info_submit_form').attr('action', url).submit();
 //        $.ajax({
 //            url: url,
 //            type: 'POST',
-//            data: $('#grid_list_frm').serialize()
-//            +'&_token='+_token
-//            +'&loctype='+loctype
-//            +'&locid='+locid,
-//            beforeSend: function(){ $('.loadingImage').show();},
-           // success: function (d) {//
-//                $('.showSearchDataUnique').html(d);
-//                $('.loadingImage').hide();
+//            data: $('#dss_all_info_submit_form').serialize(),
+//            success: function (d) {
+//                $('#lifting').html(d);
+//            
+////                var w = window.open(success_url); 
+////                $(w.document).open(); 
+////                $(w.document.body).html(d); 
+//                
+////            $('.loadingImage').hide();
+////            console.log(d);
+////            window.open(success_url+'/'+d);
+//////            window.location.replace(success_url,);
+//                
 //            }
 //        });
 //    });
