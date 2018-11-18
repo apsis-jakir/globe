@@ -91,10 +91,7 @@
             {{--</tr>--}}
             </thead>
             <tbody>
-                    <?php 
-//                    debug($search_options,1);
-//                    $search_option = json_encode($search_options);
-                    ?>
+                    
                 @foreach($grid_data as $grids)
                     @php($total_target = 0)
                     @php($total_order = 0)
@@ -102,37 +99,30 @@
                     @php($total_lifting_ratio = 0)
                     @php($total_achv = 0)
                     @php($total_achv_ratio = 0)
+                    
                     <tr>
                         <td style="vertical-align: middle">
                             <a class="digdown_view" 
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
-                            <br>   
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <br>                                
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
-<!--                            <a 
-                                loctype_form="{{$grids['loctype']}}" 
-                                locid_form="{{$grids['locid']}}" 
-                                details_for_form="export" 
-                                style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" 
-                                href="">Export DSS 
-                            </a>-->
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
                         @endforeach
                         <td>Target</td>
                         @foreach($grids['target'] as $target)
-                            <td class="text-right">{{$target}}</td>
+                        <td class="text-right">{{$target}}</td>
                             @php($total_target += (float)$target)
                         @endforeach
                         <td class="text-right">{{number_format($total_target, 2)}}</td>
@@ -143,16 +133,16 @@
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
                             <br>                                
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -170,16 +160,16 @@
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
                             <br>                                
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -197,16 +187,16 @@
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
                             <br>                                
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -232,16 +222,16 @@
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
                             <br>                                
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -259,16 +249,16 @@
                                 loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="view" 
-                                style="margin-bottom: 3px;width: 95px !important;text-align: center;display: block;" 
+                                style="margin-bottom: 3px;width: 95px !important;text-align: center;" 
                                 href="">
-                                {!! $grids['view_type'] !!} 
+                                {!!$grids['view_type']!!} 
                             </a>
                             <br>                                
-                            <input type="button" loctype_form="{{$grids['loctype']}}" 
+                            <a loctype_form="{{$grids['loctype']}}" 
                                 locid_form="{{$grids['locid']}}" 
                                 details_for_form="export" 
                                 style="margin-top: 3px;margin-bottom: 3px;width: 95px;" 
-                                class="btn btn-bitbucket digdown_export" value="Export DSS">
+                                class="btn btn-bitbucket digdown_export">Export DSS</a>
                         </td>
                         @foreach(parrentColumnTitleValue(ucfirst($view_column),3)['value'] as $pctv)
                             <td style="vertical-align: middle">{{$grids[$pctv]}}</td>
@@ -328,7 +318,9 @@
         rowsGroup = [0,1,2,3,4];
         fixedColumn = 6;
     }
-    $('.dss_report_table').dataTable({
+    
+    console.log(rowsGroup);
+    $('#lifting').dataTable({
         scrollY: "calc(125vh - 380px)",
         scrollX: true,
         scrollCollapse: true,
